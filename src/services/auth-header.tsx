@@ -11,8 +11,6 @@ export default function authHeader() {
   }
 
   if (user && user.accessToken) {
-    console.log("Auth-header");
-    console.log("Authorization: Bearer " + user.accessToken);
     return { Authorization: "Bearer " + user.accessToken };
   } else {
     return {};

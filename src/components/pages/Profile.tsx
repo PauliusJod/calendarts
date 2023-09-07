@@ -12,7 +12,6 @@ export default function Profile() {
   useEffect(() => {
     GetAllGroupsByOwnership()
       .then((result) => {
-        // console.log(result);
         setGroupData(result);
       })
       .catch((error) => {
@@ -68,7 +67,6 @@ export default function Profile() {
               ) : (
                 <p>No data available.</p>
               )}
-
               <ListGroup.Item
                 action
                 href="#newGroup"

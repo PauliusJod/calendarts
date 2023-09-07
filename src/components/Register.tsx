@@ -1,16 +1,7 @@
-import React, { useState, useEffect, Component } from "react";
-// import Form from "react-validation/build/form";
-// import Input from "react-validation/build/input";
-// import CheckButton from "react-validation/build/button";
-import {
-  useFetcher,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
-  Col,
   Form,
   InputGroup,
   Row,
@@ -18,7 +9,6 @@ import {
   Card,
   Alert,
 } from "react-bootstrap";
-import isEmail from "validator";
 import { AuthService } from "../services/authservice";
 import loadingGif from "./images/loadinggif.gif";
 
@@ -29,7 +19,6 @@ const alertStyle = {
 };
 
 export default function Register() {
-  // const [validated, setValidated] = useState(false);
   const [usernameInput, setUsernameInput] = useState<string>("");
   const [emailInput, setEmailInput] = useState<string>("");
   const [passwordInput, setPasswordInput] = useState<string>("");
@@ -41,7 +30,6 @@ export default function Register() {
     useState<boolean>(false);
   const [apiResponseErrorMessage, setApiResponseErrorMessage] =
     useState<string>("");
-  const [isActive, setIsActive] = useState(false);
 
   const instance = new AuthService({}, {});
   let navigate = useNavigate();
@@ -55,8 +43,6 @@ export default function Register() {
       return console.log("return");
     instance.register(username, email, password).then(
       (response: any) => {
-        // console.log("response: ", response);
-        // console.log("response: ", response.data);
         setIsRegisterSuccessful(true);
         setTimeout(() => {
           navigate("/login");
@@ -236,85 +222,5 @@ export default function Register() {
         )}
       </Card>
     </Container>
-    // <div className="col-md-12">
-    //   <div className="card card-container">
-    //     <img
-    //       src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-    //       alt="profile-img"
-    //       className="profile-img-card"
-    //     />
-
-    //     <Form
-    //       onSubmit={this.handleRegister}
-    //       ref={(c) => {
-    //         this.form = c;
-    //       }}
-    //     >
-    //       {!this.state.successful && (
-    //         <div>
-    //           <div className="form-group">
-    //             <label htmlFor="username">Username</label>
-    //             <Input
-    //               type="text"
-    //               className="form-control"
-    //               name="username"
-    //               onChange={(e) => setUsername(e.target.value)}
-    //               validations={[required, vusername]}
-    //             />
-    //           </div>
-
-    //           <div className="form-group">
-    //             <label htmlFor="email">Email</label>
-    //             <Input
-    //               type="text"
-    //               className="form-control"
-    //               name="email"
-    //               value={this.state.email}
-    //               onChange={this.onChangeEmail}
-    //               validations={[required, email]}
-    //             />
-    //           </div>
-
-    //           <div className="form-group">
-    //             <label htmlFor="password">Password</label>
-    //             <Input
-    //               type="password"
-    //               className="form-control"
-    //               name="password"
-    //               value={this.state.password}
-    //               onChange={this.onChangePassword}
-    //               validations={[required, vpassword]}
-    //             />
-    //           </div>
-
-    //           <div className="form-group">
-    //             <button className="btn btn-primary btn-block">Sign Up</button>
-    //           </div>
-    //         </div>
-    //       )}
-
-    //       {this.state.message && (
-    //         <div className="form-group">
-    //           <div
-    //             className={
-    //               this.state.successful
-    //                 ? "alert alert-success"
-    //                 : "alert alert-danger"
-    //             }
-    //             role="alert"
-    //           >
-    //             {this.state.message}
-    //           </div>
-    //         </div>
-    //       )}
-    //       <CheckButton
-    //         style={{ display: "none" }}
-    //         ref={(c) => {
-    //           this.checkBtn = c;
-    //         }}
-    //       />
-    //     </Form>
-    //   </div>
-    // </div>
   );
 }

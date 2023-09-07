@@ -17,19 +17,16 @@ export class NavMenu extends Component<NavMenuProps, NavMenuState> {
 
   constructor(props: NavMenuProps) {
     super(props);
-
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
       collapsed: true,
     };
   }
-
   toggleNavbar() {
     this.setState({
       collapsed: !this.state.collapsed,
     });
   }
-
   handleLogout = () => {
     localStorage.clear();
     window.location.href = "http://localhost:3000/login";
@@ -44,7 +41,6 @@ export class NavMenu extends Component<NavMenuProps, NavMenuState> {
         console.log("Error");
       }
     }
-    console.log(user);
     let adminRole = false;
     if (user !== null) {
       const userInfo = jwt_decode(user.accessToken) as DecodedUserInfo;
@@ -116,7 +112,7 @@ export class NavMenu extends Component<NavMenuProps, NavMenuState> {
                 //     Reports
                 //   </NavLink>
                 // </NavItem>
-                <p>dddddddddddddddddddd</p>
+                <p>....................</p>
               ) : (
                 <></>
               )}

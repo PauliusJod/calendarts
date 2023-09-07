@@ -43,12 +43,9 @@ export async function CreateGroup(groupName: string, groupDescription: string) {
       { headers }
     )
     .then((response) => {
-      console.log("response: ", response.data);
-      console.log("response: ", response);
       return { data: response.data, status: response.status };
     })
     .catch((err) => {
-      console.log("error: ", err);
       return {
         statusCode: err.request.status,
         statusMessage: err.response.data,
