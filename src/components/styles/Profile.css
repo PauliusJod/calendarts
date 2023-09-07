@@ -131,3 +131,9 @@
   transform: scaleX(1.05);
   transform: scaleY(1.05);
 }
+.group-view-main {
+  margin: 10px;
+}
+.group-view-main > h5 {
+  padding: 2px;
+}

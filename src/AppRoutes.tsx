@@ -2,7 +2,7 @@ import { Home } from "./components/Home";
 import { Testas } from "./components/Testas";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Profile from "./components/Profile";
+import Profile from "./components/pages/Profile";
 const AppRoutes = [
   {
     index: true,
