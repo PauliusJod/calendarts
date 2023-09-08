@@ -1,42 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { Container, Card, Row, Col, ListGroup, Badge } from "react-bootstrap";
-import { HandleNewGroupCreate, HandleGroupView } from "./profilePageStages";
-import { IGroupCreate, IGroupGet } from "../../typings/GroupProps";
-import { GetAllGroupsByOwnership } from "../pagesServices/profileServices";
+import { useState } from "react";
+import { Container, Card, Row, Col, ListGroup } from "react-bootstrap";
+import {
+  HandleNewGroupCreate,
+  HandleGroupView,
+  HandleGroupsListView,
+} from "../content/profileViewsHandlers";
+import { IGroupGet } from "../../typings/GroupProps";
 
 export default function Profile() {
   const [isGroupCreateVisible, setGroupCreateVisible] =
     useState<boolean>(false);
   const [choosenGroupId, setChoosenGroupId] = useState<number>(-1);
   const [groupData, setGroupData] = useState<IGroupGet[]>([]);
-  useEffect(() => {
-    GetAllGroupsByOwnership()
-      .then((result) => {
-        setGroupData(result);
-      })
-      .catch((error) => {
-        console.log("Error fetching data: ", error);
-      });
-  }, []);
-  const setItemsInvisible = () => {
-    const updatedGroupData = [...groupData];
-    updatedGroupData.map((item) => {
-      item.isVisible = false;
-    });
-    setGroupData(updatedGroupData);
-    setGroupCreateVisible(false);
+
+  const handleDataFromChild = (data: any) => {
+    setGroupData(data);
   };
-  const handleItemClick = (index: number) => {
-    setItemsInvisible();
-    const updatedGroupData = [...groupData];
-    updatedGroupData[index].isVisible = !updatedGroupData[index].isVisible;
-    setGroupData(updatedGroupData);
+  const handleIndexFromChild = (index: number) => {
     setChoosenGroupId(index);
+  };
+  const handleIsVisibleFromChild = (isCreateVisible: boolean) => {
+    setGroupCreateVisible(isCreateVisible);
   };
   return (
     <Container style={{ width: "100%" }}>
       <Row>
-        <>{console.log(groupData)}</>
         <Col>
           {isGroupCreateVisible ? (
             <HandleNewGroupCreate />
@@ -47,35 +35,11 @@ export default function Profile() {
           )}
         </Col>
         <Col style={{ backgroundColor: "grey" }}>
-          <Card style={{ width: "80%" }}>
-            <ListGroup variant="flush">
-              {groupData.length > 0 ? (
-                groupData.map((item, i) => (
-                  <ListGroup.Item
-                    key={i}
-                    className="d-flex justify-content-between align-items-start"
-                    action
-                    href={`#groupView-${i}`}
-                    onClick={() => handleItemClick(i)}
-                  >
-                    {item.groupName}
-                    <Badge bg="dark" pill>
-                      0
-                    </Badge>
-                  </ListGroup.Item>
-                ))
-              ) : (
-                <p>No data available.</p>
-              )}
-              <ListGroup.Item
-                action
-                href="#newGroup"
-                onClick={() => setGroupCreateVisible(!isGroupCreateVisible)}
-              >
-                Create new group
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
+          <HandleGroupsListView
+            onDataReceived={handleDataFromChild}
+            onIndexReceived={handleIndexFromChild}
+            onVisibleStateReceived={handleIsVisibleFromChild}
+          />
         </Col>
       </Row>
       <Row>
